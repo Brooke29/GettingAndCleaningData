@@ -13,7 +13,7 @@ This **ReadMe.md** file.
  * Important Note: to be able to view **run\_analysis.html** as an html output rather than a source code on GitHub, please follow these easy steps:
 
 </ol>
-1. Click on **run\_analysis.html**, to open it as a source code page and copy the url of the page. (or copy it from here: [https://github.com/Brooke29/GettingAndCleaningData/blob/master/run_analysis.html](https://github.com/Brooke29/GettingAndCleaningData/blob/master/run_analysis.html "run_analysis.html")   
+1. Click on **run\_analysis.html**, to open it as a source code page and copy the url of the page. (or copy it from here: [https://github.com/Brooke29/GettingAndCleaningData/blob/master/run_analysis.html](https://github.com/Brooke29/GettingAndCleaningData/blob/master/run_analysis.html "run_analysis.html")).  
 2. Paste the link into this page: [http://htmlpreview.github.io/](http://htmlpreview.github.io/).You can now read the html output!
  
 
