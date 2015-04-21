@@ -1,0 +1,270 @@
+---
+title: "Getting & Cleaning Data -- Course Project"
+output: html_document
+---
+
+<!-- For more info on RMarkdown see http://rmarkdown.rstudio.com/ -->
+
+<!-- Enter the code required to load your data in the space below. The data will be loaded but the line of code won't show up in your write up (echo=FALSE) in order to save space-->
+```{r echo=FALSE}
+setwd("C:/Users/User/rpractice/GettingAndCleaningData/UCI HAR Dataset")
+```
+Set your working directory to UCI HAR Dataset.
+<!-- In the remainder of the document, add R code chunks as needed -->
+
+### Step 1: Merge the training and test sets to create 1 data set:
+
+####Preliminary steps:
+
+The packages we will need to complete this project:
+
+```{r}
+library(data.table)
+```  
+
+```{r}
+library(dplyr)
+```
+
+
+####Working with the data:
+
+From looking at the files in the UCI HAR Dataset directory, we can divide the pertinent files into three main groups:  
+
+1.**Subject**: values come from subject train and test files.  
+
+2.**Activity**: values come from X train and test files.  
+
+3.**Features**: values come from Y train and test files.  
+
+
+Names of variable Features come from features.txt file, and levels of variable Activity come from activity_labels.txt files.  
+
+To complete the task outlined in this step, we will do the following:  
+
+####Read the datasets into R:
+
+**Subject**:
+
+```{r}
+subjectTrain<-read.table("train/subject_train.txt")
+```
+```{r}
+subjectTest<-read.table("test/subject_test.txt")
+```
+
+**Activity**:
+
+```{r}
+activityTrain<-read.table("train/y_train.txt")
+```
+```{r}
+activityTest<-read.table("test/y_test.txt")
+```
+
+**Features**:
+
+```{r}
+featuresTrain<-read.table("train/X_train.txt")
+```
+```{r}
+featuresTest<-read.table("test/X_test.txt")
+```
+
+####Read the labels/names into R:
+
+```{r}
+activity_labels<-read.table("activity_labels.txt", header=FALSE)
+```
+```{r}
+feat_names<-read.table("features.txt")
+```
+
+####Merge the subject (train & test), Activity (train & test) and Features (train & test) data using rbind():
+
+```{r}
+subject<-rbind(subjectTrain, subjectTest)
+```
+```{r}
+activity<-rbind(activityTrain,activityTest)
+```
+```{r}
+features<-rbind(featuresTrain,featuresTest)
+```
+
+####Set names for the variables in the resulting datasets:
+
+```{r}
+names(subject)<-"subject"
+```  
+
+```{r}
+names(activity)<-"activity"
+```  
+
+```{r}
+names(features)<-as.character(feat_names[,2])
+```
+
+
+####Finally, merge the resulting three datasets into one using cbind():  
+
+```{r}
+data<-cbind(subject,activity, features)
+```
+
+####Clean the unnecessary data from the workspace:
+
+```{r}
+rm(subjectTrain,subjectTest,activityTrain,activityTest,featuresTrain,featuresTest, subject,activity,features)
+```
+
+
+
+### Step 2: Extract only the measurements on the mean & SD for each measurement:
+
+Column Indices for columns with means and standard deviations:
+
+```{r}
+Means<-grep("mean()", colnames(data))
+```  
+
+```{r}
+SDs<-grep("std()", colnames(data))
+```  
+
+```{r}
+MeansAndSDs<-c(Means,SDs)
+```
+
+Extract the above-indiced columns (while keeping the variables "subject" and "activity" in columns 1 and 2, respectively):
+
+```{r}
+newdata<-data[, c(1,2,MeansAndSDs)]
+```
+
+Let's take a look at str(newdata):
+
+```{r}
+str(newdata)
+```
+
+We can remove the columns with the meanFreq measurements:
+
+```{r}
+NewData<-newdata[, !grepl("Freq", colnames(newdata))]
+```
+
+We currently have a dataset with only the measurements on the mean and SD for each measurement.
+
+### Step 3: Use descritive activity names to name the activities in the dataset:
+
+To do that, we will be using the file activity\_labels.txt (which we have preveiously read into activity_labels dataframe).  
+
+Change variable activity from numeric to character so that we could use the activity names:
+
+```{r}
+NewData$activity<-as.character(NewData$activity)
+```
+  
+  
+"Attach" activity names from the file activity labels.txt:
+
+```{r}
+for (i in 1:6){NewData$activity[NewData$activity==i]<-as.character(activity_labels[i,2])}
+```
+
+Factorise variable activity:
+
+```{r}
+NewData$activity<-as.factor(NewData$activity)
+```
+
+Check:
+
+```{r}
+ class(NewData$activity)
+```  
+
+```{r}
+head(NewData$activity, 10)
+```
+
+
+### Step 4: Appropriately label the dataset with descriptive variable names:
+
+Let's take a look at our variable names:
+
+```{r}
+names(NewData)
+```
+  
+  
+Having examined our variable names, we can make the following changes:
+
+"t" in the beginning of the variable name, to "time":
+
+```{r}
+names(NewData)<-gsub("^t", "time", names(NewData))
+```
+
+"f" in the beginning of the variable name, to "frequency":  
+
+```{r}
+names(NewData)<-gsub("^f", "frequency", names(NewData))
+```
+
+"Acc" to "Accelerometer":  
+
+```{r}
+names(NewData)<-gsub("Acc", "Accelerometer", names(NewData))
+```
+
+"Gyro" to "Gyroscope":  
+
+```{r}
+names(NewData)<-gsub("Gyro", "Gyroscope", names(NewData))
+```
+
+"Mag" to "Magnitude":
+
+```{r}
+names(NewData)<-gsub("Mag", "Magnitude", names(NewData))
+```
+
+and finally, "BodyBody" to "Body":  
+
+```{r}
+names(NewData)<-gsub("BodyBody", "Body", names(NewData))
+```
+
+Let's take another look at our variable names after the change:
+
+```{r}
+names(NewData)
+```
+  
+  
+They are now significantly more descriptive than they were when they were abbreviated.
+
+
+### Step 5: From the dataset in step 4, create a 2nd, tidy dataset with the average of each variable for each activity and each subject:
+
+Creating a tidy dataset with the average of each variable for each activity and each subject, using the aggregate() function from the dplyr package (that we have uploaded in the beginning):
+
+```{r}
+TidyData<-aggregate(.~subject+activity, NewData, mean)
+```
+
+Creating a txt file containing our tidy data set, using the write.table() function from the data.table package:
+
+```{r}
+write.table(TidyData, file="C:/Users/User/rpractice/GettingAndCleaningData/tidy.txt", row.names=FALSE)
+```
+
+The resulting dataset satisfies the conditions for a tidy dataset:
+
+  * Each variable we measured is in one column (see codebook for a complete list of all 68 variables).  
+  * Each different observation forms a row (we have 30 subjects and 6 levels of activity (laying, sitting, standing, walking, walking downstairs & walking upstairs): a total of 180 rows of observations). 
+  * Each type of observational unit forms a table.
+  
