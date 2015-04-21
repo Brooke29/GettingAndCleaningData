@@ -7,7 +7,7 @@ This **ReadMe.md** file.
 
 **UCI HAR Dataset directory** : includes original data for this project.
 
-**run\_analysis.html** : an html file knitted from run\_analysis.Rmd. This file contains a complete step-by-step description of the script outlined in run_analysis.R below, including all appropriate code output (which is done automatically when running knit HTML in R Studio). If you are grading this project, it will provide you with a more convenient way to see every step listed below than viewing run\_analysis.R. It also includes an explanation as to why the resulting dataset is tidy.
+**run\_analysis.html** : an html file knitted from run\_analysis.Rmd. This file contains a complete step-by-step description of the script outlined in run_analysis.R below, including all appropriate code output (which is done automatically when running knit HTML in R Studio). If you are grading this project, it will provide you with a more convenient way to see every step listed below than viewing run\_analysis.R. 
 
 
  * Important Note: to be able to view **run\_analysis.html** as an html output rather than a source code on GitHub, please follow these easy steps:
