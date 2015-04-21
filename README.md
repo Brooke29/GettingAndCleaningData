@@ -31,8 +31,8 @@ This **ReadMe.md** file.
 
      data <- read.table(file_path, header = TRUE)
 
-To view several rows & columns of the tidy dataset, use:
+To view the tidy dataset, use:
 
-    head(data)[im:in, jm:jn]
+    View(data)
 
 **codebook.md**: codebook with the information about the variables in the tidy dataset.
