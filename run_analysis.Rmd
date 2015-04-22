@@ -250,7 +250,7 @@ They are now significantly more descriptive than they were when they were abbrev
 
 ### Step 5: From the dataset in step 4, create a 2nd, tidy dataset with the average of each variable for each activity and each subject:
 
-Creating a tidy dataset with the average of each variable for each activity and each subject, using the aggregate() function from the dplyr package (that we have uploaded in the beginning):
+Creating a tidy dataset with the average of each variable for each activity and each subject, using the aggregate() function:
 
 ```{r}
 TidyData<-aggregate(.~subject+activity, NewData, mean)
