@@ -376,7 +376,7 @@ img {
 </div>
 <div id="step-5-from-the-dataset-in-step-4-create-a-2nd-tidy-dataset-with-the-average-of-each-variable-for-each-activity-and-each-subject" class="section level3">
 <h3>Step 5: From the dataset in step 4, create a 2nd, tidy dataset with the average of each variable for each activity and each subject:</h3>
-<p>Creating a tidy dataset with the average of each variable for each activity and each subject, using the aggregate() function from the dplyr package (that we have uploaded in the beginning):</p>
+<p>Creating a tidy dataset with the average of each variable for each activity and each subject, using the aggregate() function:</p>
 <pre class="r"><code>TidyData&lt;-aggregate(.~subject+activity, NewData, mean)</code></pre>
 <p>Creating a txt file containing our tidy data set, using the write.table() function from the data.table package:</p>
 <pre class="r"><code>write.table(TidyData, file=&quot;C:/Users/User/rpractice/GettingAndCleaningData/tidy.txt&quot;, row.names=FALSE)</code></pre>
