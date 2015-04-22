@@ -84,6 +84,8 @@ NewData<-newdata[, !grepl("Freq", colnames(newdata))]
 # Step 3: Use descritive activity names to name the activities in the dataset:
 
 #To do that, we will be using the file activity_labels.txt (which we have preveiously read into activity_labels dataframe).  
+#Change variable activity from numerical to character, so that it would accept activity names; assign activity names from
+#activity_labels; factorise variable activity.
 
 NewData$activity<-as.character(NewData$activity)
 for (i in 1:6){NewData$activity[NewData$activity==i]<-as.character(activity_labels[i,2])}
