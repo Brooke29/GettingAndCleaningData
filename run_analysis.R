@@ -1,9 +1,9 @@
-#Please see run_analysis.html (run_analysis.Rmd) for a more conveniet and reader-friendly view of this script.
+# Please see run_analysis.html (run_analysis.Rmd) for a more conveniet and reader-friendly view of this script.
 
 #The data for this project can be found here: https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip 
 #To run the code, please download the data and make URI HAR Dataset your working directory.
 
-#Packages required for the project:
+# Packages required for the project:
 
 library(data.table)
 library(dplyr)
@@ -15,77 +15,77 @@ library(dplyr)
 # Activity: values come from X train and test files.  
 # Features: values come from Y train and test files.  
 
-#Names of variable Features come from features.txt file, and levels of variable Activity come from activity_labels.txt files.  
+# Names of variable Features come from features.txt file, and levels of variable Activity come from activity_labels.txt files.  
 
-#Read the datasets into R:
+# Read the datasets into R:
 
 #Subject:
 
 subjectTrain<-read.table("train/subject_train.txt")
 subjectTest<-read.table("test/subject_test.txt")
 
-#Activity:
+# Activity:
 
 activityTrain<-read.table("train/y_train.txt")
 activityTest<-read.table("test/y_test.txt")
 
-#Features:
+# Features:
 
 featuresTrain<-read.table("train/X_train.txt")
 featuresTest<-read.table("test/X_test.txt")
 
-#Read the labels/names into R:
+# Read the labels/names into R:
 
 activity_labels<-read.table("activity_labels.txt", header=FALSE)
 feat_names<-read.table("features.txt")
 
-#Merge the subject (train & test), Activity (train & test) and Features (train & test) data using rbind():
+# Merge the subject (train & test), Activity (train & test) and Features (train & test) data using rbind():
 
 subject<-rbind(subjectTrain, subjectTest)
 activity<-rbind(activityTrain,activityTest)
 features<-rbind(featuresTrain,featuresTest)
 
-#Set names for the variables in the resulting datasets:
+# Set names for the variables in the resulting datasets:
 
 names(subject)<-"subject"
 names(activity)<-"activity"
 names(features)<-as.character(feat_names[,2])
 
-#Finally, merge the resulting three datasets into one using cbind():  
+# Finally, merge the resulting three datasets into one using cbind():  
 
 data<-cbind(subject,activity, features)
 
-#Clean the unnecessary data from the workspace:
+# Clean the unnecessary data from the workspace:
 
 rm(subjectTrain,subjectTest,activityTrain,activityTest,featuresTrain,featuresTest, subject,activity,features)
 
 # Step 2: Extract only the measurements on the mean & SD for each measurement:
 
-#Column Indices for columns with means and standard deviations:
+# Column Indices for columns with means and standard deviations:
 
 Means<-grep("mean()", colnames(data))
 SDs<-grep("std()", colnames(data))
 MeansAndSDs<-c(Means,SDs)
 
-#Extract the above-indiced columns (while keeping the variables "subject" and "activity" in columns 1 and 2, respectively):
+# Extract the above-indiced columns (while keeping the variables "subject" and "activity" in columns 1 and 2, respectively):
 
 newdata<-data[, c(1,2,MeansAndSDs)]
 
-#Let's take a look at str(newdata):
+# Let's take a look at str(newdata):
 
 str(newdata)
 
-#We can remove the columns with the meanFreq measurements:
+# We can remove the columns with the meanFreq measurements:
 
 NewData<-newdata[, !grepl("Freq", colnames(newdata))]
 
-#We currently have a dataset with only the measurements on the mean and SD for each measurement.
+# We currently have a dataset with only the measurements on the mean and SD for each measurement.
 
 # Step 3: Use descritive activity names to name the activities in the dataset:
 
-#To do that, we will be using the file activity_labels.txt (which we have preveiously read into activity_labels dataframe).  
-#Change variable activity from numerical to character, so that it would accept activity names; assign activity names from
-#activity_labels; factorise variable activity.
+# To do that, we will be using the file activity_labels.txt (which we have preveiously read into activity_labels dataframe).  
+# Change variable activity from numerical to character, so that it would accept activity names; assign activity names from
+# activity_labels; factorise variable activity.
 
 NewData$activity<-as.character(NewData$activity)
 for (i in 1:6){NewData$activity[NewData$activity==i]<-as.character(activity_labels[i,2])}
@@ -99,7 +99,7 @@ head(NewData$activity, 10)
 
 # Step 4: Appropriately label the dataset with descriptive variable names:
 
-#Let's take a look at our variable names:
+# Let's take a look at our variable names:
 
 names(NewData)
 
@@ -116,7 +116,19 @@ names(NewData)<-gsub("BodyBody", "Body", names(NewData))
 
 names(NewData)
 
-#They are now significantly more descriptive than they were when they were abbreviated.
+# They are now significantly more descriptive than they were when they were abbreviated.
+# While it It was not specifically asked, we can also make the levels of variable activity more "readable". 
+# Let's take a look at them:
+
+levels(NewData$activity)
+
+# Change the uppercase to lowercase, get rid of the underscores, and use correct grammar (change "laying" to "lying"):  
+
+levels(NewData$activity)<-c("lying", "sitting", "standing", "walking", "walkingDownstairs", "walkingUpstairs")
+
+# new levels of varible activity:  
+
+levels(NewData$activity)
 
 # Step 5: From the dataset in step 4, create a 2nd, tidy dataset with the average of each variable for each activity and each subject:
 
