@@ -373,6 +373,16 @@ img {
 ## [67] &quot;frequencyBodyGyroscopeMagnitude-std()&quot;         
 ## [68] &quot;frequencyBodyGyroscopeJerkMagnitude-std()&quot;</code></pre>
 <p>They are now significantly more descriptive than they were when they were abbreviated.</p>
+<p>It was not specifically asked, but we can also make the levels of variable activity more “readable”. Let’s take a look at them:</p>
+<pre class="r"><code>levels(NewData$activity)</code></pre>
+<pre><code>## [1] &quot;LAYING&quot;             &quot;SITTING&quot;            &quot;STANDING&quot;          
+## [4] &quot;WALKING&quot;            &quot;WALKING_DOWNSTAIRS&quot; &quot;WALKING_UPSTAIRS&quot;</code></pre>
+<p>Change the uppercase to lowercase, get rid of the underscores, and use correct grammar (change “laying” to “lying”):</p>
+<pre class="r"><code>levels(NewData$activity)&lt;-c(&quot;lying&quot;, &quot;sitting&quot;, &quot;standing&quot;, &quot;walking&quot;, &quot;walkingDownstairs&quot;, &quot;walkingUpstairs&quot;)</code></pre>
+<p>Now let’s take a look at the new levels of varible activity:</p>
+<pre class="r"><code>levels(NewData$activity)</code></pre>
+<pre><code>## [1] &quot;lying&quot;             &quot;sitting&quot;           &quot;standing&quot;         
+## [4] &quot;walking&quot;           &quot;walkingDownstairs&quot; &quot;walkingUpstairs&quot;</code></pre>
 </div>
 <div id="step-5-from-the-dataset-in-step-4-create-a-2nd-tidy-dataset-with-the-average-of-each-variable-for-each-activity-and-each-subject" class="section level3">
 <h3>Step 5: From the dataset in step 4, create a 2nd, tidy dataset with the average of each variable for each activity and each subject:</h3>

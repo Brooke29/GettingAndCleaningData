@@ -1,4 +1,3 @@
-From the original codebook:
 
 The features selected for the **original** database came from the accelerometer and gyroscope 3-axial raw signals tAcc-XYZ and tGyro-XYZ. These time domain signals (prefix 't' to denote time) were captured at a constant rate of 50 Hz. Then they were filtered using a median filter and a 3rd order low pass Butterworth filter with a corner frequency of 20 Hz to remove noise. Similarly, the acceleration signal was then separated into body and gravity acceleration signals (tBodyAcc-XYZ and tGravityAcc-XYZ) using another low pass Butterworth filter with a corner frequency of 0.3 Hz. 
 
@@ -31,7 +30,9 @@ The set of variables that were estimated from these signals are:
 
 **mean(): Mean value**  
 **std(): Standard deviation**  
+
 and others.
+
 
 For the **tidy dataset**, only the measurements on **the mean and Standard Deviation** were extracted; and **the average of each variable for each activity and each subject** was presented. Likewise, the variable names were changed to more descriptive names compared to the original (no abbreviations).
 

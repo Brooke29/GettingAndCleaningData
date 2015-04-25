@@ -7,13 +7,13 @@ This **ReadMe.md** file.
 
 **UCI HAR Dataset directory** : includes original data for this project.
 
-**run\_analysis.html** : an html file knitted from run\_analysis.Rmd. This file contains a complete step-by-step description of the script outlined in run_analysis.R below, including all appropriate code output (which is done automatically when running knit HTML in R Studio). If you are grading this project, it will provide you with a more convenient way to see every step listed below than viewing run\_analysis.R. 
+**run\_analysis.html** : an html file knitted from run\_analysis.Rmd. This file contains a complete step-by-step description of the script outlined in run_analysis.R below, including all appropriate code output (which is done automatically when running knit HTML in R Studio). If you are grading this project, it will provide you with a more convenient way to see every step listed below than viewing run\_analysis.R. It also includes an explanation as to why the resulting dataset is tidy.
 
 
  * Important Note: to be able to view **run\_analysis.html** as an html output rather than a source code on GitHub, please follow these easy steps:
 
 </ol>
-1. Click on **run\_analysis.html**, to open it as a source code page and copy the url of the page. (or copy it from here: [https://github.com/Brooke29/GettingAndCleaningData/blob/master/run_analysis.html](https://github.com/Brooke29/GettingAndCleaningData/blob/master/run_analysis.html "run_analysis.html")).  
+1. Click on **run\_analysis.html**, to open it as a source code page and copy the url of the page. (or copy it from here: [https://github.com/Brooke29/GettingAndCleaningData/blob/master/run_analysis.html](https://github.com/Brooke29/GettingAndCleaningData/blob/master/run_analysis.html "run_analysis.html")   
 2. Paste the link into this page: [http://htmlpreview.github.io/](http://htmlpreview.github.io/).You can now read the html output!
  
 

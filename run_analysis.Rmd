@@ -9,7 +9,7 @@ output: html_document
 ```{r echo=FALSE}
 setwd("C:/Users/User/rpractice/GettingAndCleaningData/UCI HAR Dataset")
 ```
-Set your working directory to UCI HAR Dataset.
+Working directory: UCI HAR Dataset.
 <!-- In the remainder of the document, add R code chunks as needed -->
 
 ### Step 1: Merge the training and test sets to create 1 data set:
@@ -245,7 +245,27 @@ names(NewData)
 ```
   
   
-They are now significantly more descriptive than they were when they were abbreviated.
+They are now significantly more descriptive than they were when they were abbreviated.  
+
+
+It was not specifically asked, but we can also make the levels of variable activity more "readable". Let's take a look at them:
+
+```{r}
+levels(NewData$activity)
+```
+  
+Change the uppercase to lowercase, get rid of the underscores, and use correct grammar (change "laying" to "lying"):  
+
+```{r}
+levels(NewData$activity)<-c("lying", "sitting", "standing", "walking", "walkingDownstairs", "walkingUpstairs")
+```
+  
+Now let's take a look at the new levels of varible activity:  
+
+```{r}
+levels(NewData$activity)
+```
+
 
 
 ### Step 5: From the dataset in step 4, create a 2nd, tidy dataset with the average of each variable for each activity and each subject:
