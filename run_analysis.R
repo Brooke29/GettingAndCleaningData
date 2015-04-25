@@ -116,7 +116,7 @@ names(NewData)
 
 #They are now significantly more descriptive than they were when they were abbreviated.
 
-# While it It was not specifically asked, we can also make the levels of variable activity more "readable". 
+# While it was not specifically asked, we can also make the levels of variable activity more "readable". 
 # Let's take a look at them:
 
 levels(NewData$activity)
